@@ -58,7 +58,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("C:\\ProgramData\\ssh\\ssh.txt")
+    public_key = file("~/ssh.txt")
   }
 
   os_disk {
