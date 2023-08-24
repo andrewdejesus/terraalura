@@ -40,6 +40,7 @@ resource "azurerm_network_interface" "nic" {
 
   ip_configuration {
     name                          = "internal"
+    public_ip_address_id          = "/subscriptions/a7dec0f2-694e-4d03-af37-f64e625868eb/resourceGroups/AulaTerraform/providers/Microsoft.Network/publicIPAddresses/VMSubnet-publicIpAddress"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
   }
