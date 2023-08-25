@@ -16,6 +16,7 @@
   - name: Iniciando projeto Django
     shell: ". /home/adminuser/tcc/venv/bin/activate; 
             django-admin startproject setup /home/adminuser/tcc"
+    ignore_errors: yes
   - name: Alterando hosts do django settings
     lineinfile:
       path: /home/adminuser/tcc/setup/settings.py
