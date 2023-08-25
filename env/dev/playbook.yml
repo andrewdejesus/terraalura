@@ -1,0 +1,28 @@
+- hosts: terraform-ansible
+  tasks:
+  - name: Instalando o Python3, virtualenv
+    apt:
+      pkg:
+      - python3
+      - virtualenv
+      update_cache: yes
+    become: yes
+
+  - name: instalando dep com pip(Django e DjangoRest)
+    pip:
+      virtualenv: /home/IaC-DEV/tcc/venv
+      name: 
+        - django
+        - djangorestframework
+  - name: Iniciando projeto Django
+    shell: ". /home/IaC-DEV/tcc/venv/bin/activate; 
+            django-admin startproject setup /home/IaC-DEV/tcc"
+    ignore_errors: yes
+    
+  - name: Alterando hosts do django settings
+    lineinfile:
+      path: /home/IaC-DEV/tcc/setup/settings.py
+      regexp: "ALLOWED_HOSTS"
+      line: "ALLOWED_HOSTS =['*']"
+      #Backrefs é para não mexer no arquivo caso não ache nada.
+      backrefs: yes
