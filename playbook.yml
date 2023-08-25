@@ -8,13 +8,13 @@
       update_cache: yes
     become: yes
 
+  - name: criando o arquivo
+    copy:
+      dest: /home/adminuser/index.html
+      content: <h1>Feito com terraform e ansible</h1>
+  - name: criando servidor
+    shell: "nohup busybox httpd -f -p 8080 &"
 
-
-
-
-#criando o arquivo
-  #  copy:
-    #  dest: /home/adminuser/index.html
-     # content: <h1>Feito com terraform e ansible</h1>
-  - #name: criando servidor
-    #shell: "nohup busybox httpd -f -p 8080 &"
+#Para fechar o busybox só rodar:
+#  - name: fechando busybox
+#    shell: "pkill busybox"
