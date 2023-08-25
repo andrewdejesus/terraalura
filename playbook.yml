@@ -7,14 +7,19 @@
       - virtualenv
       update_cache: yes
     become: yes
-
-  - name: criando o arquivo
-    copy:
-      dest: /home/adminuser/index.html
-      content: <h1>Feito com terraform e ansible</h1>
-  - name: criando servidor
-    shell: "nohup busybox httpd -f -p 8080 &"
-
-#Para fechar o busybox só rodar:
-#  - name: fechando busybox
-#    shell: "pkill busybox"
+  - name: instalando dep com pip(Django e DjangoRest)
+    pip:
+      virtualenv: /home/adminuser/tcc/venv
+      name: 
+        - django
+        - djangorestframework
+  - name: Iniciando projeto Django
+    shell: ". /home/adminuser/tcc/venv/bin/activate; 
+            django-admin startproject setup /home/adminuser/tcc"
+  - name: Alterando hosts do django settings
+    lineinfile:
+      path: /home/adminuser/tcc/setup/settings.py
+      regexp: "ALLOWED_HOSTS"
+      line: "ALLOWED_HOSTS =['*']"
+      #Backrefs é para não mexer no arquivo caso não ache nada.
+      backrefs: yes
