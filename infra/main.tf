@@ -129,3 +129,14 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 }
+
+output "IP_publico" {
+  value       = azurerm_public_ip.example.ip_address
+}
+
+output "username" {
+  value       = azurerm_linux_virtual_machine.vm.admin_username
+}
+
+
+

@@ -10,5 +10,13 @@ module "dev"{
     nome_interface_rede = "IaC-DEV-Interface-rede"
 }
 
+output "IP" {
+  value       = module.dev.IP_publico
+}
+output "Nome_do_usuário" {
+  value       = module.dev.username
+}
+
+
 
 
