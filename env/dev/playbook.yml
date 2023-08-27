@@ -14,10 +14,16 @@
       name: 
         - django
         - djangorestframework
+
+  - name: Verificando se o projeto existe
+    stat:
+      path: /home/IaC-DEV/tcc/setup/settings.py
+    register: projeto
+
   - name: Iniciando projeto Django
     shell: ". /home/IaC-DEV/tcc/venv/bin/activate; 
             django-admin startproject setup /home/IaC-DEV/tcc"
-    ignore_errors: yes
+    when: not projeto.stat.exists
     
   - name: Alterando hosts do django settings
     lineinfile:

@@ -4,7 +4,7 @@ module "dev"{
     regiao_azure = "brazilsouth"
     nome_usuario = "IaC-DEV"
     nome_maquina = "Maquina.DEV"
-    chave_ssh = "Iac-DEV.pub"
+    chave_ssh = "IaC-DEV.pub"
     nome_grupo = "IaC-DEV-group"
     nome_rede = "IaC-DEV-rede"
     nome_interface_rede = "IaC-DEV-Interface-rede"

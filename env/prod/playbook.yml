@@ -8,16 +8,18 @@
       update_cache: yes
     become: yes
 
-  - name: instalando dep com pip(Django e DjangoRest)
+  - name: Fazendo o Git clone
+    ansible.builtin.git:
+      repo: https://github.com/alura-cursos/clientes-leo-api.git
+      dest: /home/IaC-PROD/tcc
+      version: master
+      force: yes
+
+  - name: instalando dep com pip(arquivo requirements)
     pip:
       virtualenv: /home/IaC-PROD/tcc/venv
-      name: 
-        - django
-        - djangorestframework
-  - name: Iniciando projeto Django
-    shell: ". /home/IaC-PROD/tcc/venv/bin/activate; 
-            django-admin startproject setup /home/IaC-PROD/tcc"
-    ignore_errors: yes
+      requirements: /home/IaC-PROD/tcc/requirements.txt
+
     
   - name: Alterando hosts do django settings
     lineinfile:
@@ -26,3 +28,15 @@
       line: "ALLOWED_HOSTS =['*']"
       #Backrefs é para não mexer no arquivo caso não ache nada.
       backrefs: yes
+  
+  - name: configurando o banco de dados
+    shell: ". /home/IaC-PROD/tcc/venv/bin/activate; 
+            python /home/IaC-PROD/tcc/manage.py migrate"
+  
+  - name: Carregando dados iniciais
+    shell: ". /home/IaC-PROD/tcc/venv/bin/activate; 
+            python /home/IaC-PROD/tcc/manage.py loaddata clientes.json"
+  
+  - name: Iniciando servidor
+    shell: ". /home/IaC-PROD/tcc/venv/bin/activate; 
+            nohup python /home/IaC-PROD/tcc/manage.py runserver 0.0.0.0:8000 &"
