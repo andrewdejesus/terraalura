@@ -8,7 +8,6 @@ module "prod" {
   nome_grupo          = "IaC-PROD-group"
   nome_rede           = "IaC-PROD-rede"
   nome_interface_rede = "IaC-PROD-Interface-rede"
-  
 }
 
 
